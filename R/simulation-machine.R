@@ -36,7 +36,7 @@ Simulation.Machine <- function(features, npb = nrow(features), seed1 = 100, std1
   cl <- parallel::makeCluster(no_cores)
   doParallel::registerDoParallel(cl)
   
-  Parallel computation
+  #Parallel computation
   output <- as.data.frame(
     foreach::foreach(
       which.block = 1:number.of.blocks, 
