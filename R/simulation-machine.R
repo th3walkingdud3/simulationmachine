@@ -30,35 +30,35 @@ Simulation.Machine <- function(features, npb = nrow(features), seed1 = 100, std1
   # Turn off parallel processing during development
   
   # # Calculate the number of cores
-  # no_cores <- parallel::detectCores() - 1
+  no_cores <- parallel::detectCores() - 1
   # 
   # # Initiate cluster
-  # cl <- parallel::makeCluster(no_cores)
-  # doParallel::registerDoParallel(cl)
+  cl <- parallel::makeCluster(no_cores)
+  doParallel::registerDoParallel(cl)
   
-  # Parallel computation
-  # output <- as.data.frame(
-  #   foreach::foreach(
-  #     which.block = 1:number.of.blocks, 
-  #     .combine = "rbind",
-  #     .export = c(".list_of_variables", ".translators",
-  #                 ".parameters", "maybe_set_seed", "simulations")
-  #   ) %dopar% 
-  #     simulations(which.block = which.block, 
-  #                 features = features, 
-  #                 npb = npb)
-  # )
-  
+  Parallel computation
   output <- as.data.frame(
-    simulations(which.block = 1, 
-                features = features, 
-                npb = npb,
-                seed1 = seed1,
-                std1 = std1,
-                std2 = std2)
-  )
+    foreach::foreach(
+      which.block = 1:number.of.blocks, 
+       .combine = "rbind",
+       .export = c(".list_of_variables", ".translators",
+                   ".parameters", "maybe_set_seed", "simulations")
+     ) %dopar% 
+       simulations(which.block = which.block, 
+                   features = features, 
+                   npb = npb)
+   )
+  
+  #output <- as.data.frame(
+  #  simulations(which.block = 1, 
+  #              features = features, 
+  #              npb = npb,
+  #              seed1 = seed1,
+  #              std1 = std1,
+  #              std2 = std2)
+  #)
   # Close cluster
-  # parallel::stopCluster(cl)
+   parallel::stopCluster(cl)
   
   # Convert LoB, cc and inj_part back to factors
   output$LoB <- factor(output$LoB)
