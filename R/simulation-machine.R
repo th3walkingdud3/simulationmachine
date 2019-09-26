@@ -46,7 +46,8 @@ Simulation.Machine <- function(features, npb = nrow(features), seed1 = 100, std1
      ) %dopar% 
        simulations(which.block = which.block, 
                    features = features, 
-                   npb = npb)
+                   npb = npb,
+                   seed1 = seed1)
    )
   
   #output <- as.data.frame(
