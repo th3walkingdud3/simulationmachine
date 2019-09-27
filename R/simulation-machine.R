@@ -42,12 +42,12 @@ Simulation.Machine <- function(features, npb = nrow(features), seed1 = 100, std1
       which.block = 1:number.of.blocks, 
        .combine = "rbind",
        .export = c(".list_of_variables", ".translators",
-                   ".parameters", "maybe_set_seed", "simulations")
-     ) %dopar% 
+                   ".parameters", "maybe_set_seed", "simulations"),
+      seed1 = seed1
+     ) %dorng% 
        simulations(which.block = which.block, 
                    features = features, 
-                   npb = npb,
-                   seed1 = seed1)
+                   npb = npb)
    )
   
   #output <- as.data.frame(
