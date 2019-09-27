@@ -43,7 +43,7 @@ Simulation.Machine <- function(features, npb = nrow(features), seed1 = 100, std1
        .combine = "rbind",
        .export = c(".list_of_variables", ".translators",
                    ".parameters", "maybe_set_seed", "simulations"),
-      .options.RNG=1234
+       seed1 = seed1
      ) %dorng% 
        simulations(which.block = which.block, 
                    features = features, 
