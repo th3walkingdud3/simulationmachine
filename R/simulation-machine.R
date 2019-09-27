@@ -43,7 +43,7 @@ Simulation.Machine <- function(features, npb = nrow(features), seed1 = 100, std1
        .combine = "rbind",
        .export = c(".list_of_variables", ".translators",
                    ".parameters", "maybe_set_seed", "simulations"),
-      seed1 = seed1
+      .options.RNG=1234
      ) %dorng% 
        simulations(which.block = which.block, 
                    features = features, 
@@ -79,7 +79,7 @@ Simulation.Machine <- function(features, npb = nrow(features), seed1 = 100, std1
 # - the cash flow patterns and
 # - the claims status
 # of the chosen block of data
-simulations <- function(which.block, features, npb, seed1, std1, std2) {
+simulations <- function(which.block, features, npb, seed1=100, std1, std2) {
   
   # Initialize the data.frame in which we will store the output
   # n = number of observations in the current block
